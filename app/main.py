@@ -102,6 +102,10 @@ app.include_router(consulta_rc.router, prefix="/api/v1")
 from app.api.v1 import perfiles
 app.include_router(perfiles.router, prefix="/api/v1")
 
+# Importar y agregar router de notificación
+from app.api.v1 import notificacion
+app.include_router(notificacion.router, prefix="/api/v1")
+
 
 # Middleware para logging de requests
 @app.middleware("http")
