@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-soap-service
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=FastAPI SOAP Service
+      - APP_VERSION=1.0.0
+      - DEBUG=true
+      - HOST=0.0.0.0
+      - PORT=8000
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+    volumes:
+      - ./logs:/app/logs
+      - ./app:/app/app  # Para desarrollo con hot reload
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Para uso futuro - base de datos PostgreSQL
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: postgres-db
+  #   environment:
+  #     POSTGRES_DB: fastapi_soap_db
+  #     POSTGRES_USER: fastapi_user
+  #     POSTGRES_PASSWORD: fastapi_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+
+  # Para uso futuro - Redis para caché
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: redis-cache
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:
+
+networks:
+  default:
+    name: fastapi-soap-network 
