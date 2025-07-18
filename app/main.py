@@ -98,6 +98,10 @@ app.include_router(registro.router, prefix="/api/v1")
 from app.api.v1 import consulta_rc
 app.include_router(consulta_rc.router, prefix="/api/v1")
 
+# Importar y agregar router de perfiles
+from app.api.v1 import perfiles
+app.include_router(perfiles.router, prefix="/api/v1")
+
 
 # Middleware para logging de requests
 @app.middleware("http")
