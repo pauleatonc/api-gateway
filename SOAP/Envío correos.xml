@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices/WsComponentes/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices/WsComponentes/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Notificación.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices/WsComponentes/">
+      <s:element name="EnviarSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="celular" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarSMSResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoPublico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoPublicoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarListaCorreoPublico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstMails" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EnviarListaCorreoPublicoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoPublicoRm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoPublicoRmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarCorreoPublicoRmResult" type="tns:RespuestaMailBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaMailBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailsNoInsertados" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaProcesoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EstadoProceso" type="tns:eTipoEstado" />
+          <s:element minOccurs="0" maxOccurs="1" name="RespuestaProceso" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eTipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="Nulo" />
+          <s:enumeration value="CORRECTO" />
+          <s:enumeration value="INCORRECTO" />
+          <s:enumeration value="PROCESAR" />
+          <s:enumeration value="ERROR" />
+          <s:enumeration value="EXCEPCION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="EnviarListaCorreoPublicoRm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstMails" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarListaCorreoPublicoRmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarListaCorreoPublicoRmResult" type="tns:RespuestaMailBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoPublicoConArchivoAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoPublicoConArchivoAdjuntoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarListaCorreoPublicoConArchivoAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstMails" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarListaCorreoPublicoConArchivoAdjuntoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoPublicoConArchivoAdjuntoRm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoPublicoConArchivoAdjuntoRmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarCorreoPublicoConArchivoAdjuntoRmResult" type="tns:RespuestaMailBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarListaCorreoPublicoConArchivoAdjuntoRm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstMails" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarListaCorreoPublicoConArchivoAdjuntoRmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarListaCorreoPublicoConArchivoAdjuntoRmResult" type="tns:RespuestaMailBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoInterno">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoInternoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoInternoConArchivoAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoInternoConArchivoAdjuntoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoMixto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoMixtoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EnviarCorreoMixtoConArchivoAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivoByte" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoMixtoConArchivoAdjuntoResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EnviarSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarSMS" />
+  </wsdl:message>
+  <wsdl:message name="EnviarSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublico" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublico" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoRmSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoRm" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoRmSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoRmResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoRmSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoRm" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoRmSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoRmResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoConArchivoAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoConArchivoAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoConArchivoAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoConArchivoAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoConArchivoAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoConArchivoAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoConArchivoAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoConArchivoAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoConArchivoAdjuntoRmSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoConArchivoAdjuntoRm" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoPublicoConArchivoAdjuntoRmSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoPublicoConArchivoAdjuntoRmResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoConArchivoAdjuntoRmSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoConArchivoAdjuntoRm" />
+  </wsdl:message>
+  <wsdl:message name="EnviarListaCorreoPublicoConArchivoAdjuntoRmSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarListaCorreoPublicoConArchivoAdjuntoRmResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoInternoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoInterno" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoInternoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoInternoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoInternoConArchivoAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoInternoConArchivoAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoInternoConArchivoAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoInternoConArchivoAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoMixtoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoMixto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoMixtoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoMixtoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoMixtoConArchivoAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoMixtoConArchivoAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoMixtoConArchivoAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoMixtoConArchivoAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsNotificacionSoap">
+    <wsdl:operation name="EnviarSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mensajes a celulares por SMS.</wsdl:documentation>
+      <wsdl:input message="tns:EnviarSMSSoapIn" />
+      <wsdl:output message="tns:EnviarSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublico">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoPublicoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoPublicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublico">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar una lista de mails a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarListaCorreoPublicoSoapIn" />
+      <wsdl:output message="tns:EnviarListaCorreoPublicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoRm">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método (retorna un objeto RespuestaMailBe) para enviar mail a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoPublicoRmSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoPublicoRmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoRm">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método (retorna un objeto RespuestaMailBe) para enviar una lista de mails a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarListaCorreoPublicoRmSoapIn" />
+      <wsdl:output message="tns:EnviarListaCorreoPublicoRmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjunto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail con archivo adjunto a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoPublicoConArchivoAdjuntoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoPublicoConArchivoAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjunto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar una lista de mails con archivo adjunto a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarListaCorreoPublicoConArchivoAdjuntoSoapIn" />
+      <wsdl:output message="tns:EnviarListaCorreoPublicoConArchivoAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjuntoRm">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método (retorna un objeto RespuestaMailBe) para enviar mail con archivo adjunto a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoPublicoConArchivoAdjuntoRmSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoPublicoConArchivoAdjuntoRmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjuntoRm">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método (retorna un objeto RespuestaMailBe) para enviar una lista de mails con archivo adjunto a una cuenta externa (no sence) por ejemplo GMail, Hotmail, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarListaCorreoPublicoConArchivoAdjuntoRmSoapIn" />
+      <wsdl:output message="tns:EnviarListaCorreoPublicoConArchivoAdjuntoRmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInterno">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail a una cuenta interna (sence). No se necesita incluir el mail, basta solo con indicar el sistema.</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoInternoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoInternoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInternoConArchivoAdjunto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail con archivo adjunto a una cuenta interna (sence). No se necesita incluir el mail, basta solo con indicar el sistema.</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoInternoConArchivoAdjuntoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoInternoConArchivoAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail a una cuenta mixta por ejemplo GMail, Hotmail, @sence.cl, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoMixtoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoMixtoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixtoConArchivoAdjunto">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para enviar mail con archivo adjunto a una cuenta mixta por ejemplo GMail, Hotmail, @sence.cl, etc...</wsdl:documentation>
+      <wsdl:input message="tns:EnviarCorreoMixtoConArchivoAdjuntoSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoMixtoConArchivoAdjuntoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsNotificacionSoap" type="tns:WsNotificacionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarSMS">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublico">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublico">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoRm">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoRm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoRm">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoRm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjunto">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjunto">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjuntoRm">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoConArchivoAdjuntoRm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjuntoRm">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoConArchivoAdjuntoRm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInterno">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoInterno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInternoConArchivoAdjunto">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoInternoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixto">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoMixto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixtoConArchivoAdjunto">
+      <soap:operation soapAction="http://webservices/WsComponentes/EnviarCorreoMixtoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsNotificacionSoap12" type="tns:WsNotificacionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarSMS">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublico">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublico">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoRm">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoRm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoRm">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoRm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjunto">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjunto">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoPublicoConArchivoAdjuntoRm">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoPublicoConArchivoAdjuntoRm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarListaCorreoPublicoConArchivoAdjuntoRm">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarListaCorreoPublicoConArchivoAdjuntoRm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInterno">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoInterno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoInternoConArchivoAdjunto">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoInternoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixto">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoMixto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoMixtoConArchivoAdjunto">
+      <soap12:operation soapAction="http://webservices/WsComponentes/EnviarCorreoMixtoConArchivoAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsNotificacion">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Notificación.</wsdl:documentation>
+    <wsdl:port name="WsNotificacionSoap" binding="tns:WsNotificacionSoap">
+      <soap:address location="https://wsdesa.sence.cl/wscomponentes/wsnotificacion.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsNotificacionSoap12" binding="tns:WsNotificacionSoap12">
+      <soap12:address location="https://wsdesa.sence.cl/wscomponentes/wsnotificacion.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices/WsComponentes/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices/WsComponentes/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Identificación.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices/WsComponentes/">
+      <s:element name="IniciarSesion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="credencial" type="tns:CredencialBe" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:TipoPersona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CredencialBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RunRepresentanteLegal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DvRepresentanteLegal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoPersona">
+        <s:restriction base="s:string">
+          <s:enumeration value="Natural" />
+          <s:enumeration value="Juridica" />
+          <s:enumeration value="Extranjera" />
+          <s:enumeration value="Ltp" />
+          <s:enumeration value="Sindicato" />
+          <s:enumeration value="Fsfl" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="IniciarSesionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IniciarSesionResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaCredencialBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosEntidad" type="tns:DatosEntidadBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosEmpresa" type="tns:DatosEmpresaBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoPersona" type="tns:TipoPersona" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AutorizacionBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Acceso" type="tns:EstadoAcceso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EstadoAcceso">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAutorizado" />
+          <s:enumeration value="Autorizado" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="DatosEntidadBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RutNie" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombres" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoMaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaNacimiento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDefuncion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sexo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstadoCivil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadHijos" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="tns:DireccionBe" />
+          <s:element minOccurs="1" maxOccurs="1" name="Celular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Telefono" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TelefonoLaboral" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosBanco" type="tns:DatosBancoBe" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdNacionalidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nacionalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoDocumentoExtranjero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumentoExtranjero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PerfilUsuarioUrl" type="tns:ArrayOfPerfilUsuarioUrlBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DireccionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Block" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Departamento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="tns:RegionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comuna" type="tns:ComunaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegionBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoRegion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ComunaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdComuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosBancoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CodBanco" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTipoCuenta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroCuenta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdMedioPago" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPerfilUsuarioUrlBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PerfilUsuarioUrlBe" nillable="true" type="tns:PerfilUsuarioUrlBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PerfilUsuarioUrlBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdSistema" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreSistema" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlSistema" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlSistemaSso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrdenCategoria" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreCategoria" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrdenCategoriaSistema" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosEmpresaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RutEmpresa" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="tns:RegionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comuna" type="tns:ComunaBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Correo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Telefono" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoEmpresa" type="tns:TipoEmpresa" />
+          <s:element minOccurs="1" maxOccurs="1" name="RutRepresentante" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DvRepresentante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosBanco" type="tns:DatosBancoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoEmpresa">
+        <s:restriction base="s:string">
+          <s:enumeration value="Empresa" />
+          <s:enumeration value="Otec" />
+          <s:enumeration value="Otic" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="IniciarSesionPorGuid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="guid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IniciarSesionPorGuidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IniciarSesionPorGuidResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IniciarSesionToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IniciarSesionTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IniciarSesionTokenResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoURLporRut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RutUsuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoURLporRutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoURLporRutResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IniciarSesionAlt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="credencial" type="tns:CredencialBe" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:TipoPersona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IniciarSesionAltResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IniciarSesionAltResult" type="tns:RespuestaCredencialAltBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaCredencialAltBe">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaCredencialBe">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Guid" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ObtenerInfoEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmpresa" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerInfoEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerInfoEmpresaResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerInfoPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutPersona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvPersona" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerInfoPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerInfoPersonaResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerInfoPersonaExtranjera">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nieExt" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dcExt" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerInfoPersonaExtranjeraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerInfoPersonaExtranjeraResult" type="tns:RespuestaCredencialBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoBancos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoBancosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoBancosResult" type="tns:RespuestaListadoBancoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoBancoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfBancoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBancoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BancoBe" nillable="true" type="tns:BancoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BancoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionCorta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoComunas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idRegion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoComunasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoComunasResult" type="tns:RespuestaListadoComunaBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoComunaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfComunaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfComunaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ComunaBe" nillable="true" type="tns:ComunaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoComunasEquivalencia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoComunasEquivalenciaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoComunasEquivalenciaResult" type="tns:RespuestaListadoComunaEquiBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoComunaEquiBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfComunaEquiBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfComunaEquiBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ComunaEquiBe" nillable="true" type="tns:ComunaEquiBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ComunaEquiBe">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ComunaBe">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="IdComunaGenesis" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ObtenerListadoMediosPago">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoMediosPagoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoMediosPagoResult" type="tns:RespuestaListadoMedioPagoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoMedioPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfMedioPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMedioPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MedioPagoBe" nillable="true" type="tns:MedioPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MedioPagoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoRegiones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoRegionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoRegionesResult" type="tns:RespuestaListadoRegionBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoRegionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfRegionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRegionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RegionBe" nillable="true" type="tns:RegionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoTipoCuenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoTipoCuentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoTipoCuentaResult" type="tns:RespuestaListadoTipoCuentaBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoTipoCuentaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfTipoCuentaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTipoCuentaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoCuentaBe" nillable="true" type="tns:TipoCuentaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoCuentaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoFormaPago">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoFormaPagoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoFormaPagoResult" type="tns:RespuestaListadoFormaPagoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoFormaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfFormaPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFormaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FormaPagoBe" nillable="true" type="tns:FormaPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoFrecuenciaPago">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoFrecuenciaPagoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoFrecuenciaPagoResult" type="tns:RespuestaListadoFrecuenciaPagoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoFrecuenciaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfFrecuenciaPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFrecuenciaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FrecuenciaPagoBe" nillable="true" type="tns:FrecuenciaPagoBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FrecuenciaPagoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerNivelEducacional">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerNivelEducacionalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerNivelEducacionalResult" type="tns:RespuestaListadoNivelEducacionalBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoNivelEducacionalBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfNivelEducacionalBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfNivelEducacionalBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelEducacionalBe" nillable="true" type="tns:NivelEducacionalBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelEducacionalBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerListadoOcupacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerListadoOcupacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerListadoOcupacionResult" type="tns:RespuestaListadoOcupacionBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaListadoOcupacionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lista" type="tns:ArrayOfOcupacionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOcupacionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OcupacionBe" nillable="true" type="tns:OcupacionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OcupacionBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IniciarSesionSoapIn">
+    <wsdl:part name="parameters" element="tns:IniciarSesion" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionSoapOut">
+    <wsdl:part name="parameters" element="tns:IniciarSesionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionPorGuidSoapIn">
+    <wsdl:part name="parameters" element="tns:IniciarSesionPorGuid" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionPorGuidSoapOut">
+    <wsdl:part name="parameters" element="tns:IniciarSesionPorGuidResponse" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:IniciarSesionToken" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:IniciarSesionTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoURLporRutSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoURLporRut" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoURLporRutSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoURLporRutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionAltSoapIn">
+    <wsdl:part name="parameters" element="tns:IniciarSesionAlt" />
+  </wsdl:message>
+  <wsdl:message name="IniciarSesionAltSoapOut">
+    <wsdl:part name="parameters" element="tns:IniciarSesionAltResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoPersona" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoPersonaExtranjeraSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoPersonaExtranjera" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerInfoPersonaExtranjeraSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerInfoPersonaExtranjeraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoBancosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoBancos" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoBancosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoBancosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoComunasSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoComunas" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoComunasSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoComunasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoComunasEquivalenciaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoComunasEquivalencia" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoComunasEquivalenciaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoComunasEquivalenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoMediosPagoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoMediosPago" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoMediosPagoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoMediosPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoRegionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoRegiones" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoRegionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoRegionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoTipoCuentaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoTipoCuenta" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoTipoCuentaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoTipoCuentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoFormaPagoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoFormaPago" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoFormaPagoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoFormaPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoFrecuenciaPagoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoFrecuenciaPago" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoFrecuenciaPagoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoFrecuenciaPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerNivelEducacionalSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerNivelEducacional" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerNivelEducacionalSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerNivelEducacionalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoOcupacionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoOcupacion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerListadoOcupacionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerListadoOcupacionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsIdentificacionSoap">
+    <wsdl:operation name="IniciarSesion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para inicio de sesión normal.</wsdl:documentation>
+      <wsdl:input message="tns:IniciarSesionSoapIn" />
+      <wsdl:output message="tns:IniciarSesionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionPorGuid">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para inicio de sesión mediante guid. Método actualmente utilizado por CORFO proyecto BEN.</wsdl:documentation>
+      <wsdl:input message="tns:IniciarSesionPorGuidSoapIn" />
+      <wsdl:output message="tns:IniciarSesionPorGuidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionToken">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para inicio de sesión mediante Token para SSO SENCE.</wsdl:documentation>
+      <wsdl:input message="tns:IniciarSesionTokenSoapIn" />
+      <wsdl:output message="tns:IniciarSesionTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoURLporRut">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener los sistemas asociados a un Rut.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoURLporRutSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoURLporRutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionAlt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para inicio de sesion alternativo que contiene un guid en su objeto de respuesta.</wsdl:documentation>
+      <wsdl:input message="tns:IniciarSesionAltSoapIn" />
+      <wsdl:output message="tns:IniciarSesionAltSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoEmpresa">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener información detallada de una Empresa (PJ).</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerInfoEmpresaSoapIn" />
+      <wsdl:output message="tns:ObtenerInfoEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersona">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener información detallada de una Persona Natural (PN).</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerInfoPersonaSoapIn" />
+      <wsdl:output message="tns:ObtenerInfoPersonaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersonaExtranjera">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener información detallada de una Persona Extranjera (PEx).</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerInfoPersonaExtranjeraSoapIn" />
+      <wsdl:output message="tns:ObtenerInfoPersonaExtranjeraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoBancos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de bancos.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoBancosSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoBancosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunas">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de comunas por región.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoComunasSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoComunasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunasEquivalencia">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de comunas mas el id de comuna genesis.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoComunasEquivalenciaSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoComunasEquivalenciaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoMediosPago">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de medios de pago.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoMediosPagoSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoMediosPagoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoRegiones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de regiones.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoRegionesSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoRegionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoTipoCuenta">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de Tipos de cuenta.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoTipoCuentaSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoTipoCuentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFormaPago">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de Formas de Pago.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoFormaPagoSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoFormaPagoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFrecuenciaPago">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de Frecuencia de Pago.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoFrecuenciaPagoSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoFrecuenciaPagoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNivelEducacional">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de Nivel Educacional.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerNivelEducacionalSoapIn" />
+      <wsdl:output message="tns:ObtenerNivelEducacionalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoOcupacion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene el listado de Ocupaciones.</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerListadoOcupacionSoapIn" />
+      <wsdl:output message="tns:ObtenerListadoOcupacionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsIdentificacionSoap" type="tns:WsIdentificacionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IniciarSesion">
+      <soap:operation soapAction="http://webservices/WsComponentes/IniciarSesion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionPorGuid">
+      <soap:operation soapAction="http://webservices/WsComponentes/IniciarSesionPorGuid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionToken">
+      <soap:operation soapAction="http://webservices/WsComponentes/IniciarSesionToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoURLporRut">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoURLporRut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionAlt">
+      <soap:operation soapAction="http://webservices/WsComponentes/IniciarSesionAlt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoEmpresa">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerInfoEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersona">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerInfoPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersonaExtranjera">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerInfoPersonaExtranjera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoBancos">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoBancos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunas">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoComunas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunasEquivalencia">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoComunasEquivalencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoMediosPago">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoMediosPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoRegiones">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoRegiones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoTipoCuenta">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoTipoCuenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFormaPago">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoFormaPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFrecuenciaPago">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoFrecuenciaPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNivelEducacional">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerNivelEducacional" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoOcupacion">
+      <soap:operation soapAction="http://webservices/WsComponentes/ObtenerListadoOcupacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsIdentificacionSoap12" type="tns:WsIdentificacionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IniciarSesion">
+      <soap12:operation soapAction="http://webservices/WsComponentes/IniciarSesion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionPorGuid">
+      <soap12:operation soapAction="http://webservices/WsComponentes/IniciarSesionPorGuid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionToken">
+      <soap12:operation soapAction="http://webservices/WsComponentes/IniciarSesionToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoURLporRut">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoURLporRut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesionAlt">
+      <soap12:operation soapAction="http://webservices/WsComponentes/IniciarSesionAlt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoEmpresa">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerInfoEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersona">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerInfoPersona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerInfoPersonaExtranjera">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerInfoPersonaExtranjera" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoBancos">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoBancos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunas">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoComunas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoComunasEquivalencia">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoComunasEquivalencia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoMediosPago">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoMediosPago" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoRegiones">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoRegiones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoTipoCuenta">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoTipoCuenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFormaPago">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoFormaPago" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoFrecuenciaPago">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoFrecuenciaPago" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNivelEducacional">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerNivelEducacional" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListadoOcupacion">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ObtenerListadoOcupacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsIdentificacion">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Identificación.</wsdl:documentation>
+    <wsdl:port name="WsIdentificacionSoap" binding="tns:WsIdentificacionSoap">
+      <soap:address location="https://wsdesa.sence.cl/WsComponentes/WsIdentificacion.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsIdentificacionSoap12" binding="tns:WsIdentificacionSoap12">
+      <soap12:address location="https://wsdesa.sence.cl/WsComponentes/WsIdentificacion.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

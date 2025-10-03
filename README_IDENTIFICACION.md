@@ -1,4 +1,4 @@
-# Módulo de Identificación SENCE
+# Módulo de Identificación SENCE / SE REEMPLAZA POR KEYCLOAK
 
 Este módulo implementa la integración con el servicio SOAP de Identificación de SENCE, proporcionando endpoints REST para facilitar el acceso a las funcionalidades del WSDL.
 

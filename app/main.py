@@ -106,6 +106,14 @@ app.include_router(perfiles.router, prefix="/api/v1")
 from app.api.v1 import notificacion
 app.include_router(notificacion.router, prefix="/api/v1")
 
+# Importar y agregar router de SII
+from app.api.v1 import sii
+app.include_router(sii.router, prefix="/api/v1")
+
+# Importar y agregar router de Firma
+from app.api.v1 import firma
+app.include_router(firma.router, prefix="/api/v1")
+
 
 # Middleware para logging de requests
 @app.middleware("http")

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices/WsMiddleware/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices/WsMiddleware/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para consulta al Registro Civil.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices/WsMiddleware/">
+      <s:element name="ConsultaRun">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaRunResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaRunResult" type="tns:RespuestaConsultaRunBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaConsultaRunBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:ConsultaRunBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaProcesoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="estadoProceso" type="tns:eTipoEstado" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuestaProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="codigoProceso" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eTipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="NULO" />
+          <s:enumeration value="CORRECTO" />
+          <s:enumeration value="INCORRECTO" />
+          <s:enumeration value="PROCESAR" />
+          <s:enumeration value="ERROR" />
+          <s:enumeration value="EXCEPCION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ConsultaRunBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombres" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellidoPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellidoMaterno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaNacimiento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaDefuncion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="sexo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nacionalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="estadoCivil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="cantidadHijos" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="fechaNacTruncada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fechaDefTruncada" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaNroSerieNroDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nroSerieDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoDocumento" type="tns:eTipoDocumento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eTipoDocumento">
+        <s:restriction base="s:string">
+          <s:enumeration value="C" />
+          <s:enumeration value="P" />
+          <s:enumeration value="S" />
+          <s:enumeration value="T" />
+          <s:enumeration value="D" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ConsultaNroSerieNroDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaNroSerieNroDocumentoResult" type="tns:RespuestaConsultaNroSerieNroDocBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaConsultaNroSerieNroDocBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:DatosRespuestaNroSerieNroDocBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosRespuestaNroSerieNroDocBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EstadoRespuesta" type="tns:eCodigoEstadoRespuestaNumeroSerie" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoTipoDocumento" type="tns:eTipoDocumento" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoClaseDocumento" type="tns:eCodigoTipoDocumento" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSerie" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IndicadorVigencia" type="tns:eIndicadorVigenciaNumeroSerie" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaVencimiento" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IndicadorBloqueo" type="tns:eTipoBloqueo" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eCodigoEstadoRespuestaNumeroSerie">
+        <s:restriction base="s:string">
+          <s:enumeration value="Correcto" />
+          <s:enumeration value="ErrorTecnico" />
+          <s:enumeration value="SolicitudFormatoInvalido" />
+          <s:enumeration value="ErrorAutentificacion" />
+          <s:enumeration value="DatosInexistentes" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="eCodigoTipoDocumento">
+        <s:restriction base="s:string">
+          <s:enumeration value="CedulaIdentidadParaChileno" />
+          <s:enumeration value="CedulaIdentidadParaExtranjero" />
+          <s:enumeration value="PasaporteTreintaYDosPaginas" />
+          <s:enumeration value="PasaporteDiplomatico" />
+          <s:enumeration value="PasaporteOficial" />
+          <s:enumeration value="PasaporteSesentaYCuatroPaginas" />
+          <s:enumeration value="CopiaDePasaporteDiplomatico" />
+          <s:enumeration value="Salvoconducto" />
+          <s:enumeration value="TituloDeViaje" />
+          <s:enumeration value="DocumentoDeViaje" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="eIndicadorVigenciaNumeroSerie">
+        <s:restriction base="s:string">
+          <s:enumeration value="N" />
+          <s:enumeration value="S" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="eTipoBloqueo">
+        <s:restriction base="s:string">
+          <s:enumeration value="NO_BLOQUEADO" />
+          <s:enumeration value="DEFINITIVO" />
+          <s:enumeration value="RENOVACION" />
+          <s:enumeration value="TEMPORAL" />
+          <s:enumeration value="TEMPORAL_PERMANENTE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ConsultaCertificadoNacimiento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCertificadoNacimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaCertificadoNacimientoResult" type="tns:RespuestaConsultaCertNacimientoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaConsultaCertNacimientoBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="tns:ConsultaCertNacBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="XmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsultaCertNacBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="circunscripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numeroInscripcionNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="registroInscripcionNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="anioInscripcionNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombreCompleto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaNacimiento" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="sexo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lugarNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nacionalidadNacimiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombrePadre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="runPadre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombreMadre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="runMadre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="subInscripcionNacimiento" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaDiscapacidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="run" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDiscapacidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDiscapacidadResult" type="tns:RespuestaConsultaDiscapacidadBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaConsultaDiscapacidadBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="tns:ConsultaDiscapacidadBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="XmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsultaDiscapacidadBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Run" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApareceEnRND" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Discapacidad" type="tns:DiscapacidadBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="DiscapacidadRn" type="tns:DiscapacidadRnBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DiscapacidadBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FechaVencimiento" type="tns:FechaVencimientoBe" />
+          <s:element minOccurs="1" maxOccurs="1" name="GradoDiscapacidadSensorial" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="GradoDiscapacidadMental" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="GradoDiscapacidadFisica" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FechaVencimientoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaTruncada" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DiscapacidadRnBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IndPermanente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaProximoDictamen" type="tns:FechaProximoDictamenBe" />
+          <s:element minOccurs="1" maxOccurs="1" name="GradoDiscapacidadMental" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CausaPrincipal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListadoCausaSecundaria" type="tns:ArrayOfListadoCausaSecundariaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FechaProximoDictamenBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaValida" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfListadoCausaSecundariaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ListadoCausaSecundariaBe" nillable="true" type="tns:ListadoCausaSecundariaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ListadoCausaSecundariaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Causa" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Verify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlparamin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VerifyResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlparamout" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarHuellaDactilar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Datos" type="tns:HuellaDactilarBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HuellaDactilarBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RutEmpresa" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTransaccion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioFinal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RutPersona" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroDedo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Formato" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImagenBase64" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="VerificarHuellaDactilarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificarHuellaDactilarResult" type="tns:RespuestaBeOfRespuestaHuellaDactilarBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaBeOfRespuestaHuellaDactilarBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="decision" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mensajeDetalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="estructuraDatos" type="tns:RespuestaHuellaDactilarBe" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoRespuesta" type="tns:TipoRespuestaEnum" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaHuellaDactilarBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Puntaje" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RespuestaAFIS" type="tns:eRespuesaAfisHuella" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eRespuesaAfisHuella">
+        <s:restriction base="s:string">
+          <s:enumeration value="Desconocido" />
+          <s:enumeration value="Hit" />
+          <s:enumeration value="NoHit" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TipoRespuestaEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="Desconocido" />
+          <s:enumeration value="CorrectoNegocio" />
+          <s:enumeration value="AdvReglaNegocio" />
+          <s:enumeration value="CorrectoTecnico" />
+          <s:enumeration value="ErrorReglaNegocio" />
+          <s:enumeration value="ErrorTecnico" />
+          <s:enumeration value="Informacion" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaRunSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaRun" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRunSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaRunResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaNroSerieNroDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaNroSerieNroDocumento" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaNroSerieNroDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaNroSerieNroDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCertificadoNacimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaCertificadoNacimiento" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCertificadoNacimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaCertificadoNacimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDiscapacidadSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDiscapacidad" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDiscapacidadSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDiscapacidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerifySoapIn">
+    <wsdl:part name="parameters" element="tns:Verify" />
+  </wsdl:message>
+  <wsdl:message name="VerifySoapOut">
+    <wsdl:part name="parameters" element="tns:VerifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificarHuellaDactilarSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarHuellaDactilar" />
+  </wsdl:message>
+  <wsdl:message name="VerificarHuellaDactilarSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarHuellaDactilarResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsConsulta_SRCEISoap">
+    <wsdl:operation name="ConsultaRun">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que verifica el Run de una persona</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaRunSoapIn" />
+      <wsdl:output message="tns:ConsultaRunSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNroSerieNroDocumento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que verifica el N° de Serie o N° de Documento del RUN</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaNroSerieNroDocumentoSoapIn" />
+      <wsdl:output message="tns:ConsultaNroSerieNroDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCertificadoNacimiento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna información del certificado de nacimiento</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaCertificadoNacimientoSoapIn" />
+      <wsdl:output message="tns:ConsultaCertificadoNacimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDiscapacidad">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que consulta su una persona tiene alguna discapacidad</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaDiscapacidadSoapIn" />
+      <wsdl:output message="tns:ConsultaDiscapacidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Verify">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que permite validar la huella dactilar por medio del proceso BATCH de BioPortal.</wsdl:documentation>
+      <wsdl:input message="tns:VerifySoapIn" />
+      <wsdl:output message="tns:VerifySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarHuellaDactilar">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que permite validar la huella dactilar.</wsdl:documentation>
+      <wsdl:input message="tns:VerificarHuellaDactilarSoapIn" />
+      <wsdl:output message="tns:VerificarHuellaDactilarSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsConsulta_SRCEISoap" type="tns:WsConsulta_SRCEISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaRun">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaRun" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNroSerieNroDocumento">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaNroSerieNroDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCertificadoNacimiento">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaCertificadoNacimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDiscapacidad">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaDiscapacidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Verify">
+      <soap:operation soapAction="http://webservices/WsMiddleware/Verify" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarHuellaDactilar">
+      <soap:operation soapAction="http://webservices/WsMiddleware/VerificarHuellaDactilar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsConsulta_SRCEISoap12" type="tns:WsConsulta_SRCEISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaRun">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaRun" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNroSerieNroDocumento">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaNroSerieNroDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCertificadoNacimiento">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaCertificadoNacimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDiscapacidad">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaDiscapacidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Verify">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/Verify" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarHuellaDactilar">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/VerificarHuellaDactilar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsConsulta_SRCEI">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para consulta al Registro Civil.</wsdl:documentation>
+    <wsdl:port name="WsConsulta_SRCEISoap" binding="tns:WsConsulta_SRCEISoap">
+      <soap:address location="https://wsdesa.sence.cl/WsMiddleware/WsConsulta_SRCeI.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsConsulta_SRCEISoap12" binding="tns:WsConsulta_SRCEISoap12">
+      <soap12:address location="https://wsdesa.sence.cl/WsMiddleware/WsConsulta_SRCeI.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

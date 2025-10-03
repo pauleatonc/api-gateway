@@ -141,10 +141,13 @@ ENVIRONMENT=production
 
 ### Configuración de Logging
 
-Los logs se configuran automáticamente con Loguru y se guardan en:
-- `logs/app.log`: Logs de la aplicación
-- `logs/access.log`: Logs de acceso
-- Salida estándar (stdout) con colores
+Los logs se configuran automáticamente con Loguru:
+- **Salida estándar (stdout)**: Logs con colores (siempre activo)
+- **Archivos de log** (opcional, solo si hay permisos de escritura):
+  - `logs/app.log`: Logs de la aplicación
+  - `logs/access.log`: Logs de acceso
+
+En entornos donde no hay permisos para escribir archivos (ej: contenedores), el sistema automáticamente usa solo stdout sin generar errores.
 
 ## 📊 Endpoints
 
@@ -164,6 +167,100 @@ Los logs se configuran automáticamente con Loguru y se guardan en:
 - **GET /docs**: Swagger UI
 - **GET /redoc**: ReDoc
 - **GET /openapi.json**: Esquema OpenAPI
+
+### Servicios SOAP Integrados
+
+Esta aplicación integra **7 servicios SOAP** de SENCE con un total de **44 endpoints REST**:
+
+#### 🔐 Identificación - Clave Única ⚠️ DEPRECADO
+
+> **Nota**: Este servicio está siendo reemplazado por Keycloak para autenticación y autorización.
+
+- Ver documentación completa: [README_IDENTIFICACION.md](README_IDENTIFICACION.md)
+- **POST /api/v1/auth/login**: Iniciar sesión con usuario y contraseña
+- **POST /api/v1/auth/login/guid**: Iniciar sesión por GUID
+- **POST /api/v1/auth/login/token**: Validar token de sesión
+- **GET /api/v1/auth/systems/{rut}**: Obtener sistemas disponibles por RUT
+
+#### 📝 Registro de Organismos
+
+- Ver documentación completa: [README_REGISTRO.md](README_REGISTRO.md)
+- **POST /api/v1/registro/persona**: Registrar persona en SENCE
+- **POST /api/v1/registro/persona/crm**: Registrar persona en CRM
+- **POST /api/v1/registro/persona/siac**: Registrar persona en SIAC-OIRS
+- **POST /api/v1/registro/empresa**: Registrar empresa
+- **PUT /api/v1/registro/empresa**: Actualizar empresa
+- **PATCH /api/v1/registro/empresa/razon**: Actualizar razón social
+- **PATCH /api/v1/registro/empresa/rep-legal**: Actualizar representantes legales
+- **PATCH /api/v1/registro/empresa/tipo**: Actualizar tipo de entidad
+- **POST /api/v1/registro/empresa/con-cus**: Registrar empresa con CUS
+- **PATCH /api/v1/registro/empresa/cambio-cus**: Cambiar CUS de empresa
+- **POST /api/v1/registro/empresa/oracle**: Registrar empresa en Oracle
+
+#### 🔍 Consulta Registro Civil
+
+- Ver documentación completa: [README_CONSULTA_RC.md](README_CONSULTA_RC.md)
+- **GET /api/v1/rc/run**: Consultar RUN
+- **GET /api/v1/rc/run/documento**: Consultar número de serie/documento
+- **GET /api/v1/rc/cert-nac**: Consultar certificado de nacimiento
+- **GET /api/v1/rc/discapacidad**: Consultar discapacidad
+- **POST /api/v1/rc/verify**: Verificar huella dactilar (BATCH)
+- **POST /api/v1/rc/huella**: Verificar huella dactilar
+
+#### 👤 Perfiles y Usuarios
+
+- Ver documentación completa: [README_PERFILES.md](README_PERFILES.md)
+- **GET /api/v1/perfiles/usuarios**: Consultar usuarios por perfil y sistema
+- **GET /api/v1/perfiles/usuarios/{rut}**: Consultar perfiles de usuario por RUT
+- **GET /api/v1/perfiles/perfiles**: Consultar perfiles por sistema
+- **GET /api/v1/perfiles/funciones**: Consultar funciones por sistema
+- **GET /api/v1/perfiles/funciones/por-perfil**: Consultar funciones por perfil
+- **GET /api/v1/perfiles/empresas**: Consultar empresas por perfil
+- **POST /api/v1/perfiles/solicitar**: Solicitar perfil para usuario
+- **POST /api/v1/perfiles/bloquear**: Bloquear perfil de usuario
+- **POST /api/v1/perfiles/asignar**: Asignar perfil a usuario
+
+#### 📧 Notificaciones
+
+- Ver documentación completa: [README_NOTIFICACION.md](README_NOTIFICACION.md)
+- **POST /api/v1/notificacion/sms**: Envío de SMS
+- **POST /api/v1/notificacion/correo/publico**: Envío de correos públicos
+- **POST /api/v1/notificacion/correo/publico/lista**: Envío masivo de correos
+- **POST /api/v1/notificacion/correo/publico/rm**: Envío de correo con respuesta detallada
+
+#### 💼 SII - Servicio de Impuestos Internos
+
+- Ver documentación completa: [README_SII.md](README_SII.md)
+- **POST /api/v1/sii/representante-legal**: Consultar representante legal
+- **POST /api/v1/sii/relacion-empresa**: Verificar relación contribuyente-empresa
+- **POST /api/v1/sii/movimiento-contribuyente**: Verificar movimiento tributario
+- **POST /api/v1/sii/numero-empleados**: Consultar cantidad de empleados
+- **POST /api/v1/sii/categoria-empresa**: Consultar categoría por ventas
+- **POST /api/v1/sii/datos-contribuyente**: Obtener datos del contribuyente
+- **POST /api/v1/sii/actividad-economica**: Consultar actividades económicas
+- **POST /api/v1/sii/estado-giro**: Consultar estado del giro
+- **POST /api/v1/sii/fecha-inicio-actividad**: Consultar fecha de inicio
+
+#### ✍️ Firma Desatendida
+
+- Ver documentación completa: [README_FIRMA.md](README_FIRMA.md)
+- **POST /api/v1/firma/desatendida**: Firma electrónica desatendida de documentos
+
+---
+
+### Resumen de Servicios Integrados
+
+| Servicio | Endpoints | Documentación | Estado |
+|----------|-----------|---------------|--------|
+| 🔐 Identificación | 4 | [README_IDENTIFICACION.md](README_IDENTIFICACION.md) | ⚠️ Deprecado (reemplazado por Keycloak) |
+| 📝 Registro | 11 | [README_REGISTRO.md](README_REGISTRO.md) | ✅ Activo |
+| 🔍 Consulta RC | 6 | [README_CONSULTA_RC.md](README_CONSULTA_RC.md) | ✅ Activo |
+| 👤 Perfiles | 9 | [README_PERFILES.md](README_PERFILES.md) | ✅ Activo |
+| 📧 Notificaciones | 4 | [README_NOTIFICACION.md](README_NOTIFICACION.md) | ✅ Activo |
+| 💼 SII | 9 | [README_SII.md](README_SII.md) | ✅ Activo |
+| ✍️ Firma | 1 | [README_FIRMA.md](README_FIRMA.md) | ✅ Activo |
+
+**Total: 44 endpoints REST** que mapean a servicios SOAP de SENCE.
 
 ## 🧪 Tests
 

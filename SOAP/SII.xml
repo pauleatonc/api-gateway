@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices/WsMiddleware/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices/WsMiddleware/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para consulta al Servicio de Impuestos Internos.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices/WsMiddleware/">
+      <s:element name="ConsultaRepresentanteLegal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="rut" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaRepresentanteLegalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaRepresentanteLegalResult" type="tns:RespuestaSiiRepresentanteLegalBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiRepresentanteLegalBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RepresentanteLegalSiiBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaProcesoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="estadoProceso" type="tns:eTipoEstado" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuestaProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="codigoProceso" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eTipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="NULO" />
+          <s:enumeration value="CORRECTO" />
+          <s:enumeration value="INCORRECTO" />
+          <s:enumeration value="PROCESAR" />
+          <s:enumeration value="ERROR" />
+          <s:enumeration value="EXCEPCION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="RepresentanteLegalSiiBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="representantes" type="tns:ArrayOfRepresentanteLegalSii" />
+          <s:element minOccurs="0" maxOccurs="1" name="datosGenerales" type="tns:RespuestaSiiDatosGlosa" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRepresentanteLegalSii">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RepresentanteLegalSii" nillable="true" type="tns:RepresentanteLegalSii" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RepresentanteLegalSii">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fechaInicio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaSiiDatosGlosa">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaInicioActividad" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Glosa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaRelacionContribuyenteEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmp" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvEmp" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutSoc" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvSoc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaRelacionContribuyenteEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaRelacionContribuyenteEmpresaResult" type="tns:RespuestaSiiConsIvaBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiConsIvaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RespuestaSiiDatosGlosa" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaMovimientoContribuyente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutCont" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvCont" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="periodoTrib" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaMovimientoContribuyenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaMovimientoContribuyenteResult" type="tns:RespuestaSiiConsIvaBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaNumeroEmpleados">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaNumeroEmpleadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaNumeroEmpleadosResult" type="tns:RespuestaSiiNumeroEmpleadosBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiNumeroEmpleadosBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:ConsultaSiiNumeroEmpleadosBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsultaSiiNumeroEmpleadosBe">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaSiiDatosGlosa">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="NumeroEmpleados" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ConsultaCategoriaEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoConsulta" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaCategoriaEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaCategoriaEmpresaResult" type="tns:RespuestaSiiCatEmpBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiCatEmpBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:ConsultaSiiCatEmpBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsultaSiiCatEmpBe">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaSiiDatosGlosa">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="GlosaTipo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CantPeriodo" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ConsultaDatosContribuyente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDatosContribuyenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDatosContribuyenteResult" type="tns:RespuestaSiiDatosContribuyenteBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiDatosContribuyenteBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RespuestaSiiDatosGenerales" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaSiiDatosGenerales">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Glosa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApMaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Xml" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaActividadEconomica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaActividadEconomicaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaActividadEconomicaResult" type="tns:RespuestaSiiActividadEconomicaBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiActividadEconomicaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RespuestaSiiActEconomicaBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RespuestaSiiActEconomicaBe">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaSiiDatosGlosa">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="actividadEconomica" type="tns:ArrayOfActEconomicaBe" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfActEconomicaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActEconomicaBe" nillable="true" type="tns:ActEconomicaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActEconomicaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="actividad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="categoria" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaInic" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaEstadoGiro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaEstadoGiroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaEstadoGiroResult" type="tns:RespuestaSiiEstadoGiroBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiEstadoGiroBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RespuestaSiiDatosGlosa" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaFechaInicioActividad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rut" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dv" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaFechaInicioActividadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaFechaInicioActividadResult" type="tns:RespuestaSiiFecIniActBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaSiiFecIniActBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cabecera" type="tns:RespuestaProcesoBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="tns:RespuestaSiiDatosGlosa" />
+          <s:element minOccurs="0" maxOccurs="1" name="xmlRespuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaRepresentanteLegalSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaRepresentanteLegal" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRepresentanteLegalSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaRepresentanteLegalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRelacionContribuyenteEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaRelacionContribuyenteEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRelacionContribuyenteEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaRelacionContribuyenteEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaMovimientoContribuyenteSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaMovimientoContribuyente" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaMovimientoContribuyenteSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaMovimientoContribuyenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaNumeroEmpleadosSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaNumeroEmpleados" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaNumeroEmpleadosSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaNumeroEmpleadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCategoriaEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaCategoriaEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaCategoriaEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaCategoriaEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDatosContribuyenteSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDatosContribuyente" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDatosContribuyenteSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDatosContribuyenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaActividadEconomicaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaActividadEconomica" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaActividadEconomicaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaActividadEconomicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaEstadoGiroSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaEstadoGiro" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaEstadoGiroSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaEstadoGiroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFechaInicioActividadSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaFechaInicioActividad" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFechaInicioActividadSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaFechaInicioActividadResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsConsulta_SIISoap">
+    <wsdl:operation name="ConsultaRepresentanteLegal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Entregar el Representante Legal Vigente de un RUT.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaRepresentanteLegalSoapIn" />
+      <wsdl:output message="tns:ConsultaRepresentanteLegalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRelacionContribuyenteEmpresa">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Permite  verificar si un contribuyente es o no socio de una empresa.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaRelacionContribuyenteEmpresaSoapIn" />
+      <wsdl:output message="tns:ConsultaRelacionContribuyenteEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMovimientoContribuyente">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Permite  verificar si un contribuyente presenta o no movimiento.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaMovimientoContribuyenteSoapIn" />
+      <wsdl:output message="tns:ConsultaMovimientoContribuyenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNumeroEmpleados">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultar cantidad de empleados de la empresa.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaNumeroEmpleadosSoapIn" />
+      <wsdl:output message="tns:ConsultaNumeroEmpleadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCategoriaEmpresa">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultar la categorización de las empresas de los distintos periodos tributarios, de acuerdo al monto de sus ventas. &lt;br/&gt;Opciones de parámetro de entrada &lt;b&gt;tipoConsulta&lt;/b&gt;:&lt;br/&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;1&lt;/b&gt; - Periodo Anual Movil&lt;/li&gt;&lt;li&gt;&lt;b&gt;2&lt;/b&gt; - Periodo Anual Fijo&lt;/li&gt;&lt;li&gt;&lt;b&gt;3&lt;/b&gt; - Periodo Proporcional Movil&lt;/li&gt;&lt;li&gt;&lt;b&gt;4&lt;/b&gt; - Periodo Proporcional&lt;/li&gt;&lt;/ul&gt;</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaCategoriaEmpresaSoapIn" />
+      <wsdl:output message="tns:ConsultaCategoriaEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDatosContribuyente">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Obtiene los datos personales del contribuyente (Persona Natural o Jurídica).</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaDatosContribuyenteSoapIn" />
+      <wsdl:output message="tns:ConsultaDatosContribuyenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaActividadEconomica">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Informar las Actividades Económicas Asociadas a un Contribuyente.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaActividadEconomicaSoapIn" />
+      <wsdl:output message="tns:ConsultaActividadEconomicaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEstadoGiro">
+      <wsdl:input message="tns:ConsultaEstadoGiroSoapIn" />
+      <wsdl:output message="tns:ConsultaEstadoGiroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFechaInicioActividad">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Entregar la fecha de inicio de actividad de un contribuyente. &lt;b&gt;NOTA&lt;/b&gt;: Es posible consultar por Rut de personas naturales que tengan inicio actividad.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaFechaInicioActividadSoapIn" />
+      <wsdl:output message="tns:ConsultaFechaInicioActividadSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsConsulta_SIISoap" type="tns:WsConsulta_SIISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaRepresentanteLegal">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaRepresentanteLegal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRelacionContribuyenteEmpresa">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaRelacionContribuyenteEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMovimientoContribuyente">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaMovimientoContribuyente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNumeroEmpleados">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaNumeroEmpleados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCategoriaEmpresa">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaCategoriaEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDatosContribuyente">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaDatosContribuyente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaActividadEconomica">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaActividadEconomica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEstadoGiro">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaEstadoGiro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFechaInicioActividad">
+      <soap:operation soapAction="http://webservices/WsMiddleware/ConsultaFechaInicioActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsConsulta_SIISoap12" type="tns:WsConsulta_SIISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaRepresentanteLegal">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaRepresentanteLegal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRelacionContribuyenteEmpresa">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaRelacionContribuyenteEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMovimientoContribuyente">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaMovimientoContribuyente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaNumeroEmpleados">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaNumeroEmpleados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaCategoriaEmpresa">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaCategoriaEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDatosContribuyente">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaDatosContribuyente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaActividadEconomica">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaActividadEconomica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEstadoGiro">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaEstadoGiro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFechaInicioActividad">
+      <soap12:operation soapAction="http://webservices/WsMiddleware/ConsultaFechaInicioActividad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsConsulta_SII">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para consulta al Servicio de Impuestos Internos.</wsdl:documentation>
+    <wsdl:port name="WsConsulta_SIISoap" binding="tns:WsConsulta_SIISoap">
+      <soap:address location="https://wsdesa.sence.cl/WsMiddleware/WsConsulta_SII.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsConsulta_SIISoap12" binding="tns:WsConsulta_SIISoap12">
+      <soap12:address location="https://wsdesa.sence.cl/WsMiddleware/WsConsulta_SII.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

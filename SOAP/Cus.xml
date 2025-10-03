@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://srv-ws-ora/WsRegistroCUS" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://srv-ws-ora/WsRegistroCUS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://srv-ws-ora/WsRegistroCUS">
+      <s:element name="RegistroPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersona" type="tns:DatosPersona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosPersona">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApellidoMaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombres" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroSerie" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoCelular" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroCelular" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mail" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaNacimiento" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDefuncion" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdNacionalidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Comuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroDireccion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSexo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistroPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistroPersonaResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaProcesoBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="estadoProceso" type="tns:eTipoEstado" />
+          <s:element minOccurs="1" maxOccurs="1" name="codigoProceso" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuestaProceso" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eTipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="NULO" />
+          <s:enumeration value="CORRECTO" />
+          <s:enumeration value="INCORRECTO" />
+          <s:enumeration value="PROCESAR" />
+          <s:enumeration value="ERROR" />
+          <s:enumeration value="EXCEPCION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RegistroPersonaCrm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersona" type="tns:DatosPersonaCrm" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosPersonaCrm">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contacto" type="tns:DatosContacto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosContacto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroDireccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroDepartamento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdComuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoCelular" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroCelular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoTelefonoFijo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TelefonoFijo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistroPersonaCrmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistroPersonaCrmResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarPersonaSiacOirs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersona" type="tns:DatosPersonaSiacOirs" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosPersonaSiacOirs">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Rut" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contacto" type="tns:DatosContactoSO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosContactoSO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroDireccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroDepartamento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdComuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoCelular" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroCelular" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoTelefonoFijo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TelefonoFijo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistrarPersonaSiacOirsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarPersonaSiacOirsResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistroEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosEmpresa" type="tns:DatosEmpresa" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosEmpresa">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RutEmpresa" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DvEmpresa" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoEmpresa" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdComuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DireccionCalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DireccionNumero" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroCelular" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoCelular" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailEmpresa" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPreguntaSecreta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RespuestaSecreta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RutRepresentante" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DvRepresentante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailRepresentante" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroCelularRepresentante" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoCelularRepresentante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistroEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistroEmpresaResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosEmpresa" type="tns:DatosEmpresaRudo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosEmpresaRudo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RutEmpresa" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DvEmpresa" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoEmpresa" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdComuna" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DireccionCalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DireccionNumero" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Telefono" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailEmpresa" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ActualizarEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarEmpresaResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarRazonSocial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmpresa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvEmpresa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarRazonSocialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarRazonSocialResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarRepLegales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmpresa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvEmpresa" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarRepLegalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarRepLegalesResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarTipoEntidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmpresa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvEmpresa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoEntidad" type="tns:eTipoEmpresa" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eTipoEmpresa">
+        <s:restriction base="s:string">
+          <s:enumeration value="EMPRESA" />
+          <s:enumeration value="OTEC" />
+          <s:enumeration value="OTIC" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ActualizarTipoEntidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarTipoEntidadResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistroEmpresaConCus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosEmpresa" type="tns:DatosEmpresa" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistroEmpresaConCusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistroEmpresaConCusResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambioCusEmpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutEmpresa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dvRutEmpresa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cusActual" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nuevaCus" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambioCusEmpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CambioCusEmpresaResult" type="tns:RespuestaProcesoBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistroEmpresaOracle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosEmpresa" type="tns:DatosEmpresaOracle" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatosEmpresaOracle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PerJur" type="tns:EmpresaOracle" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreguntaRespuesta" type="tns:PreguntaRespuestaOracle" />
+          <s:element minOccurs="0" maxOccurs="1" name="PerNat" type="tns:PersonaNaturalOracle" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdhesionOracle" type="tns:AdhesionOracle" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioOracle" type="tns:UsuarioOracle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EmpresaOracle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rutPersJur" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="dvPersJur" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="razonSocialPersJur" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nomFanPersJur" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="numTrabajPersJur" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="direccionPersJur" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tipoPersJur" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPreguntaPersJur" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descPreguntaPersJur" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuestaPreguntaPersJur" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="numTelefonoPerJur" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="idComunaPerJur" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="mailPerJur" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idActEconoPerJur" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PreguntaRespuestaOracle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rutPer" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPregunta" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonaNaturalOracle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rutPerJur" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="dvPerJur" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="rutPer" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="dvPer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="aPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="aMaterno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaNacimientoPer" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="sexoPer" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPais" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idRegion" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idOcupacion" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="idEducacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mailPer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="direccionPer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numDireccionPer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="telefonoPer" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idComuna" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AdhesionOracle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rutPerJur" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="rutPer" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="dvPer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="aPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="aMaterno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tipoEmpresa" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UsuarioOracle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="rutPers" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="dvPers" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="passwordPer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistroEmpresaOracleResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RegistroPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistroPersona" />
+  </wsdl:message>
+  <wsdl:message name="RegistroPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistroPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistroPersonaCrmSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistroPersonaCrm" />
+  </wsdl:message>
+  <wsdl:message name="RegistroPersonaCrmSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistroPersonaCrmResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarPersonaSiacOirsSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarPersonaSiacOirs" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarPersonaSiacOirsSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarPersonaSiacOirsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarRazonSocialSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarRazonSocial" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarRazonSocialSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarRazonSocialResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarRepLegalesSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarRepLegales" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarRepLegalesSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarRepLegalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarTipoEntidadSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarTipoEntidad" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarTipoEntidadSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarTipoEntidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaConCusSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresaConCus" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaConCusSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresaConCusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CambioCusEmpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:CambioCusEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="CambioCusEmpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:CambioCusEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaOracleSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresaOracle" />
+  </wsdl:message>
+  <wsdl:message name="RegistroEmpresaOracleSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistroEmpresaOracleResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AutenticacionSoap">
+    <wsdl:operation name="RegistroPersona">
+      <wsdl:input message="tns:RegistroPersonaSoapIn" />
+      <wsdl:output message="tns:RegistroPersonaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistroPersonaCrm">
+      <wsdl:input message="tns:RegistroPersonaCrmSoapIn" />
+      <wsdl:output message="tns:RegistroPersonaCrmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPersonaSiacOirs">
+      <wsdl:input message="tns:RegistrarPersonaSiacOirsSoapIn" />
+      <wsdl:output message="tns:RegistrarPersonaSiacOirsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresa">
+      <wsdl:input message="tns:RegistroEmpresaSoapIn" />
+      <wsdl:output message="tns:RegistroEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmpresa">
+      <wsdl:input message="tns:ActualizarEmpresaSoapIn" />
+      <wsdl:output message="tns:ActualizarEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRazonSocial">
+      <wsdl:input message="tns:ActualizarRazonSocialSoapIn" />
+      <wsdl:output message="tns:ActualizarRazonSocialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRepLegales">
+      <wsdl:input message="tns:ActualizarRepLegalesSoapIn" />
+      <wsdl:output message="tns:ActualizarRepLegalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTipoEntidad">
+      <wsdl:input message="tns:ActualizarTipoEntidadSoapIn" />
+      <wsdl:output message="tns:ActualizarTipoEntidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaConCus">
+      <wsdl:input message="tns:RegistroEmpresaConCusSoapIn" />
+      <wsdl:output message="tns:RegistroEmpresaConCusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CambioCusEmpresa">
+      <wsdl:input message="tns:CambioCusEmpresaSoapIn" />
+      <wsdl:output message="tns:CambioCusEmpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaOracle">
+      <wsdl:input message="tns:RegistroEmpresaOracleSoapIn" />
+      <wsdl:output message="tns:RegistroEmpresaOracleSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AutenticacionSoap" type="tns:AutenticacionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegistroPersona">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroPersonaCrm">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroPersonaCrm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPersonaSiacOirs">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistrarPersonaSiacOirs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresa">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmpresa">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRazonSocial">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarRazonSocial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRepLegales">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarRepLegales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTipoEntidad">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarTipoEntidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaConCus">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresaConCus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambioCusEmpresa">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/CambioCusEmpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaOracle">
+      <soap:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresaOracle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AutenticacionSoap12" type="tns:AutenticacionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegistroPersona">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroPersona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroPersonaCrm">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroPersonaCrm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPersonaSiacOirs">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistrarPersonaSiacOirs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresa">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmpresa">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRazonSocial">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarRazonSocial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarRepLegales">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarRepLegales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTipoEntidad">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/ActualizarTipoEntidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaConCus">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresaConCus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambioCusEmpresa">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/CambioCusEmpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistroEmpresaOracle">
+      <soap12:operation soapAction="http://srv-ws-ora/WsRegistroCUS/RegistroEmpresaOracle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Autenticacion">
+    <wsdl:port name="AutenticacionSoap" binding="tns:AutenticacionSoap">
+      <soap:address location="http://srv-ws-ora:8090/WsRegistroCUS/Autenticacion.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AutenticacionSoap12" binding="tns:AutenticacionSoap12">
+      <soap12:address location="http://srv-ws-ora:8090/WsRegistroCUS/Autenticacion.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

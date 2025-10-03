@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices/WsComponentes/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices/WsComponentes/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Perfiles.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices/WsComponentes/">
+      <s:element name="ConsultaUsuariosPorPerfilSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaUsuariosPorPerfilSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaUsuariosPorPerfilSistemaResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaPerfilesBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Autorizacion" type="tns:AutorizacionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="tns:ArrayOfUsuarioBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:PerfilSistemaBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="Funcion" type="tns:ArrayOfFuncionBe" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioEmpresa" type="tns:ArrayOfUsuarioEmpresaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AutorizacionBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Acceso" type="tns:EstadoAcceso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EstadoAcceso">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoAutorizado" />
+          <s:enumeration value="Autorizado" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfUsuarioBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UsuarioBe" nillable="true" type="tns:UsuarioBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UsuarioBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellidoPaterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellidoMaterno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoPersona" type="tns:eTipoPersona" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eTipoPersona">
+        <s:restriction base="s:string">
+          <s:enumeration value="PersonaNatural" />
+          <s:enumeration value="PersonaJuridica" />
+          <s:enumeration value="PersonaExtranjera" />
+          <s:enumeration value="Otra" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PerfilSistemaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombreSistema" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="perfil" type="tns:ArrayOfPerfilBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPerfilBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PerfilBe" nillable="true" type="tns:PerfilBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PerfilBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombrePerfil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="tns:eEstado" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoPerfil" type="tns:eTipoPerfil" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="funcion" type="tns:ArrayOfFuncionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="Activo" />
+          <s:enumeration value="Inactivo" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="eTipoPerfil">
+        <s:restriction base="s:string">
+          <s:enumeration value="Normal" />
+          <s:enumeration value="Administrador" />
+          <s:enumeration value="ArquitectoTi" />
+          <s:enumeration value="Sence" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfFuncionBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FuncionBe" nillable="true" type="tns:FuncionBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FuncionBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idFuncion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombreFuncion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="obligatorio" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="denegado" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Estado" type="tns:eEstado" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUsuarioEmpresaBe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UsuarioEmpresaBe" nillable="true" type="tns:UsuarioEmpresaBe" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UsuarioEmpresaBe">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuarioEmpresa" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonSocial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoEmpresa" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoPersona" type="tns:eTipoPersona" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultaPerfilUsuarioSistemaPorRut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="rutPersona" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:eTipoPersona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPerfilUsuarioSistemaPorRutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPerfilUsuarioSistemaPorRutResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPerfilPorSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaPerfilPorSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaPerfilPorSistemaResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaFuncionesPorSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaFuncionesPorSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaFuncionesPorSistemaResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaFuncionesPorPerfilSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaFuncionesPorPerfilSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaFuncionesPorPerfilSistemaResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaEmpresasPorPerfilSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaEmpresasPorPerfilSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaEmpresasPorPerfilSistemaResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SolicitarPerfilUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivoSolicitud" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idRegion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:eTipoPersona" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsrUpdate" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SolicitarPerfilUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SolicitarPerfilUsuarioResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BloquearPerfilSistemaUsuarioPorRut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:eTipoPersona" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsrUpdate" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BloquearPerfilSistemaUsuarioPorRutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BloquearPerfilSistemaUsuarioPorRutResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignarPerfilSistemaUsuarioPorRut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSistema" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="region" type="tns:eRegion" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoPersona" type="tns:eTipoPersona" />
+            <s:element minOccurs="1" maxOccurs="1" name="rutUsrUpdate" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eRegion">
+        <s:restriction base="s:string">
+          <s:enumeration value="Region_de_Tarapaca" />
+          <s:enumeration value="Region_de_Antofagasta" />
+          <s:enumeration value="Region_de_Atacama" />
+          <s:enumeration value="Region_de_Coquimbo" />
+          <s:enumeration value="Region_de_Valparaiso" />
+          <s:enumeration value="Region_del_Lib_Gen_Ber_Ohig" />
+          <s:enumeration value="Region_del_Maule" />
+          <s:enumeration value="Region_del_Bio_Bio" />
+          <s:enumeration value="Region_de_la_Araucania" />
+          <s:enumeration value="Region_de_los_Lagos" />
+          <s:enumeration value="Region_de_Aysen_del_Gen_Carlos_IC" />
+          <s:enumeration value="Region_de_Magallanes_y_la_Ant_Chilena" />
+          <s:enumeration value="Region_Metropolitana_de_Santiago" />
+          <s:enumeration value="Region_de_los_Rios" />
+          <s:enumeration value="Region_de_Arica_y_Parinacota" />
+          <s:enumeration value="Region_de_Nuble" />
+          <s:enumeration value="Extranjero" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AsignarPerfilSistemaUsuarioPorRutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsignarPerfilSistemaUsuarioPorRutResult" type="tns:RespuestaPerfilesBe" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaUsuariosPorPerfilSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaUsuariosPorPerfilSistema" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaUsuariosPorPerfilSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaUsuariosPorPerfilSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPerfilUsuarioSistemaPorRutSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPerfilUsuarioSistemaPorRut" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPerfilUsuarioSistemaPorRutSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPerfilUsuarioSistemaPorRutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPerfilPorSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaPerfilPorSistema" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaPerfilPorSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaPerfilPorSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFuncionesPorSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaFuncionesPorSistema" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFuncionesPorSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaFuncionesPorSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFuncionesPorPerfilSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaFuncionesPorPerfilSistema" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaFuncionesPorPerfilSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaFuncionesPorPerfilSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaEmpresasPorPerfilSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaEmpresasPorPerfilSistema" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaEmpresasPorPerfilSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaEmpresasPorPerfilSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="SolicitarPerfilUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:SolicitarPerfilUsuario" />
+  </wsdl:message>
+  <wsdl:message name="SolicitarPerfilUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:SolicitarPerfilUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="BloquearPerfilSistemaUsuarioPorRutSoapIn">
+    <wsdl:part name="parameters" element="tns:BloquearPerfilSistemaUsuarioPorRut" />
+  </wsdl:message>
+  <wsdl:message name="BloquearPerfilSistemaUsuarioPorRutSoapOut">
+    <wsdl:part name="parameters" element="tns:BloquearPerfilSistemaUsuarioPorRutResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsignarPerfilSistemaUsuarioPorRutSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignarPerfilSistemaUsuarioPorRut" />
+  </wsdl:message>
+  <wsdl:message name="AsignarPerfilSistemaUsuarioPorRutSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignarPerfilSistemaUsuarioPorRutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsPerfilesSoap">
+    <wsdl:operation name="ConsultaUsuariosPorPerfilSistema">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna una lista de usuarios (Naturales) consultando por el identificador del sistema y el identificador del perfil.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaUsuariosPorPerfilSistemaSoapIn" />
+      <wsdl:output message="tns:ConsultaUsuariosPorPerfilSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilUsuarioSistemaPorRut">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que obtiene todos los perfiles que posee un usuario según su rut (tipo Persona Natural | Empresa | Extranjero | Otro) de un sistema particular.&lt;/br&gt;&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; Incluye los perfiles que no tiene asignado con el estado No Asignado.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaPerfilUsuarioSistemaPorRutSoapIn" />
+      <wsdl:output message="tns:ConsultaPerfilUsuarioSistemaPorRutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilPorSistema">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna una lista de Perfiles (perfiles) asociados a un programa (sistema).</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaPerfilPorSistemaSoapIn" />
+      <wsdl:output message="tns:ConsultaPerfilPorSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorSistema">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna un listado de funciones que disponibles de una sistema.&lt;/br&gt;&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; Los campos 'obligatorio' y 'denegado' en éste método siempre se visualizarán en estado falso.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaFuncionesPorSistemaSoapIn" />
+      <wsdl:output message="tns:ConsultaFuncionesPorSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorPerfilSistema">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna un listado de funciones que tiene un perfil asociado aun sistema.&lt;/br&gt;&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; Los campos 'obligatorio' y 'denegado' en éste método siempre se visualizarán en estado falso.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaFuncionesPorPerfilSistemaSoapIn" />
+      <wsdl:output message="tns:ConsultaFuncionesPorPerfilSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEmpresasPorPerfilSistema">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que retorna una lista de usuarios(Jurídicos) consultando por el identificador del sistema y el identificador del perfil.</wsdl:documentation>
+      <wsdl:input message="tns:ConsultaEmpresasPorPerfilSistemaSoapIn" />
+      <wsdl:output message="tns:ConsultaEmpresasPorPerfilSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarPerfilUsuario">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que solicita la asignación de un perfil para un usuario de un sistema particular.</wsdl:documentation>
+      <wsdl:input message="tns:SolicitarPerfilUsuarioSoapIn" />
+      <wsdl:output message="tns:SolicitarPerfilUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BloquearPerfilSistemaUsuarioPorRut">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que bloquea el perfil de un usuario a un sistema</wsdl:documentation>
+      <wsdl:input message="tns:BloquearPerfilSistemaUsuarioPorRutSoapIn" />
+      <wsdl:output message="tns:BloquearPerfilSistemaUsuarioPorRutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsignarPerfilSistemaUsuarioPorRut">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método que asigna el perfil de un usuario a un sistema</wsdl:documentation>
+      <wsdl:input message="tns:AsignarPerfilSistemaUsuarioPorRutSoapIn" />
+      <wsdl:output message="tns:AsignarPerfilSistemaUsuarioPorRutSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsPerfilesSoap" type="tns:WsPerfilesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaUsuariosPorPerfilSistema">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaUsuariosPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilUsuarioSistemaPorRut">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaPerfilUsuarioSistemaPorRut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilPorSistema">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaPerfilPorSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorSistema">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaFuncionesPorSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorPerfilSistema">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaFuncionesPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEmpresasPorPerfilSistema">
+      <soap:operation soapAction="http://webservices/WsComponentes/ConsultaEmpresasPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarPerfilUsuario">
+      <soap:operation soapAction="http://webservices/WsComponentes/SolicitarPerfilUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloquearPerfilSistemaUsuarioPorRut">
+      <soap:operation soapAction="http://webservices/WsComponentes/BloquearPerfilSistemaUsuarioPorRut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarPerfilSistemaUsuarioPorRut">
+      <soap:operation soapAction="http://webservices/WsComponentes/AsignarPerfilSistemaUsuarioPorRut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsPerfilesSoap12" type="tns:WsPerfilesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaUsuariosPorPerfilSistema">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaUsuariosPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilUsuarioSistemaPorRut">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaPerfilUsuarioSistemaPorRut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaPerfilPorSistema">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaPerfilPorSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorSistema">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaFuncionesPorSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFuncionesPorPerfilSistema">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaFuncionesPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaEmpresasPorPerfilSistema">
+      <soap12:operation soapAction="http://webservices/WsComponentes/ConsultaEmpresasPorPerfilSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarPerfilUsuario">
+      <soap12:operation soapAction="http://webservices/WsComponentes/SolicitarPerfilUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloquearPerfilSistemaUsuarioPorRut">
+      <soap12:operation soapAction="http://webservices/WsComponentes/BloquearPerfilSistemaUsuarioPorRut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarPerfilSistemaUsuarioPorRut">
+      <soap12:operation soapAction="http://webservices/WsComponentes/AsignarPerfilSistemaUsuarioPorRut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsPerfiles">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Métodos para utilizar la DLL de Perfiles.</wsdl:documentation>
+    <wsdl:port name="WsPerfilesSoap" binding="tns:WsPerfilesSoap">
+      <soap:address location="https://wsdesa.sence.cl/WSComponentes/WsPerfiles.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsPerfilesSoap12" binding="tns:WsPerfilesSoap12">
+      <soap12:address location="https://wsdesa.sence.cl/WSComponentes/WsPerfiles.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
